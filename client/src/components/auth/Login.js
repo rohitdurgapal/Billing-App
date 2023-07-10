@@ -1,21 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBCol, MDBRow, MDBInput } from "mdb-react-ui-kit";
 import { Toaster } from "react-hot-toast";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../contextapi/AdminContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 const Login = () => {
+  const [flag, setFlag] = useState(false);
+  const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const [flag, setFlag] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  useEffect(() => {
+    setAuth(auth);
+    const authCheck = async () => {
+      const res = await axios.get(
+        `${process.env.REACT_APP_BACKEND}api/v1/auth/admin-auth`
+      );
+      if (res.data.ok === true) {
+        navigate("/admin/sales");
+      } else {
+        navigate("/admin/login");
+      }
+    };
+    if (auth?.token) authCheck();
+  }, [auth?.token]);
+
   const handleForm = async (e) => {
     setFlag(true);
     e.preventDefault();
@@ -36,7 +50,7 @@ const Login = () => {
         });
         localStorage.setItem("auth", JSON.stringify(data));
         setTimeout(() => {
-          navigate(location.state || "/admin/sales");
+          navigate("/admin/sales");
         }, 1000);
       } else {
         toast.error(data.message);
@@ -58,7 +72,7 @@ const Login = () => {
           <MDBCol col="6" md="6" className="login-center">
             <img
               src={`${process.env.REACT_APP_URL}/logo-bg.png`}
-              class="img-fluid"
+              className="img-fluid"
               alt="Desi Flavours"
             />
           </MDBCol>
