@@ -6,10 +6,10 @@ export const createSaleController = async (req, res) => {
     const { name, mobile, address, items, total, discount, netPrice } =
       req.body;
     if (!mobile) {
-      return res.status(401).send({ message: "Mobile is required" });
+      return res.status(400).send({ message: "Mobile is required" });
     }
     if (!address) {
-      return res.status(401).send({ message: "Address is required" });
+      return res.status(400).send({ message: "Address is required" });
     }
     let count = await saleModel.find().count();
     count = count + 1;
@@ -25,7 +25,7 @@ export const createSaleController = async (req, res) => {
     }).save();
     res.status(201).send({
       success: true,
-      message: "New Sale Created",
+      message: "New sale created",
       sale,
     });
   } catch (error) {
@@ -33,7 +33,7 @@ export const createSaleController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error in Sale",
+      message: "Error in sale",
     });
   }
 };
@@ -44,7 +44,7 @@ export const saleControlller = async (req, res) => {
     const sale = await saleModel.find({ status: 1 }).sort({ sale_id: -1 });
     res.status(200).send({
       success: true,
-      message: "All Sales List",
+      message: "All sales list",
       sale,
     });
   } catch (error) {
@@ -63,7 +63,7 @@ export const singleSaleController = async (req, res) => {
     const sale = await saleModel.findOne({ _id: req.params.id });
     res.status(200).send({
       success: true,
-      message: "Get Single Sale Successfully",
+      message: "Get single sale successfully",
       sale,
     });
   } catch (error) {
@@ -71,7 +71,7 @@ export const singleSaleController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error While getting Single Sale",
+      message: "Error while getting single sale",
     });
   }
 };
@@ -82,10 +82,10 @@ export const updateSaleController = async (req, res) => {
     const { name, mobile, address, items, total, discount, netPrice } =
       req.body;
     if (!mobile) {
-      return res.status(401).send({ message: "Mobile is required" });
+      return res.status(400).send({ message: "Mobile is required" });
     }
     if (!address) {
-      return res.status(401).send({ message: "Address is required" });
+      return res.status(400).send({ message: "Address is required" });
     }
     const { id } = req.params;
     const sale = await saleModel.findByIdAndUpdate(
@@ -103,7 +103,7 @@ export const updateSaleController = async (req, res) => {
     );
     res.status(200).send({
       success: true,
-      messsage: "Sale Updated Successfully",
+      messsage: "Sale updated successfully",
       sale,
     });
   } catch (error) {
@@ -111,7 +111,7 @@ export const updateSaleController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error while updating Sale",
+      message: "Error while updating sale",
     });
   }
 };
@@ -129,7 +129,7 @@ export const deleteSaleController = async (req, res) => {
     );
     res.status(200).send({
       success: true,
-      message: "Sale Deleted Successfully",
+      message: "Sale deleted successfully",
     });
   } catch (error) {
     console.log(error);

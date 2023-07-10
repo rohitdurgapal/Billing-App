@@ -84,17 +84,17 @@ const Sales = () => {
   return (
     <Layout title="Sales">
       <div className="add-block">
-        <h3>Sale Listing</h3>
-        <Link to="/sales/add" className="btn btn-primary">
+        <h3>Sales</h3>
+        <Link to="/admin/sales/add" className="btn custom-btn">
           Add
         </Link>
       </div>
-      <Table striped className="table-design">
-        <thead>
+      <div className="stricky-table"> <Table className="table-design table-responsive">
+        <thead className="thead-dark">
           <tr>
-            <th style={{ width: "5%" }}>#</th>
+            <th>#</th>
             <th>Sale Id</th>
-            <th>Customer Name</th>
+            <th>Customer</th>
             <th>Mobile</th>
             <th>Address</th>
             <th>Total</th>
@@ -102,13 +102,13 @@ const Sales = () => {
             <th>Net Price</th>
             <th>Created At</th>
             <th>Updated At</th>
-            <th style={{ width: "15%" }}>Action</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {sales?.map((c) => (
             <tr key={c._id}>
-              <td style={{ width: "5%" }}>{++count}</td>
+              <td>{++count}</td>
               <td>#DF{c.sale_id}</td>
               <td>{c.name}</td>
               <td>{c.mobile}</td>
@@ -118,32 +118,30 @@ const Sales = () => {
               <td>{c.netPrice}</td>
               <td>{Formatdate(new Date(c.createdAt))}</td>
               <td>{Formatdate(new Date(c.updatedAt))}</td>
-              <td style={{ width: "15%" }}>
+              <td>
                 <NavLink
                   to={`/sales/print-bill/${c._id}`}
-                  className="me-1 btn btn-secondary btn-sm mb-1"
+                  className="btn custom-btn me-1 btn-sm mb-1"
                 >
-                  Print Bill
+                  P
                 </NavLink>
                 <NavLink
                   to={`/sales/update/${c._id}`}
-                  className="me-1 btn btn-primary btn-sm mb-1"
+                  className="btn custom-btn me-1 btn-sm mb-1"
                 >
-                  Edit
+                  E
                 </NavLink>
                 <Button
-                  variant="danger"
-                  size="sm"
-                  className="me-1 mb-1"
+                  className="btn custom-btn me-1 btn-sm mb-1"
                   onClick={() => deletePopUp(c._id)}
                 >
-                  Delete
+                  D
                 </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+      </Table></div>
     </Layout>
   );
 };

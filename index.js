@@ -2,6 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
+import authRoute from "./routes/authRoute.js";
+import categoryRoute from "./routes/categoryRoute.js";
+import subCategoryRoute from "./routes/subCategoryRoute.js";
+import quantityRoute from "./routes/quantityRoute.js";
 import itemRoutes from "./routes/itemRoutes.js";
 import saleRoutes from "./routes/saleRoutes.js";
 import companyRoutes from "./routes/companyRoutes.js";
@@ -22,6 +26,11 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //routes
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/sub-category", subCategoryRoute);
+app.use("/api/v1/quantity", quantityRoute);
+
 app.use("/api/v1/items", itemRoutes);
 app.use("/api/v1/sales", saleRoutes);
 app.use("/api/v1/company", companyRoutes);

@@ -14,7 +14,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
         <title>Billing App - {title}</title>
       </Helmet>
       <Header />
-      <Container fluid style={{ marginTop: "4rem" }}>
+      <Container fluid>
         <main>
           <Toaster />
           {children}

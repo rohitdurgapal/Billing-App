@@ -67,7 +67,6 @@ const Printbill = () => {
             fontSize: "14px",
             margin: "10px",
             fontWeight: "700",
-            fontFamily: "kanit, sans-serif",
           }}
         >
           <Table>

@@ -5,10 +5,10 @@ export const createUpdateCompanyController = async (req, res) => {
   try {
     const { companyId, name, address } = req.body;
     if (!name) {
-      return res.status(401).send({ message: "Name is required" });
+      return res.status(400).send({ message: "Name is required" });
     }
     if (!address) {
-      return res.status(401).send({ message: "Address is required" });
+      return res.status(400).send({ message: "Address is required" });
     }
     if (companyId != "") {
       await companyModel.findByIdAndUpdate(
@@ -25,7 +25,7 @@ export const createUpdateCompanyController = async (req, res) => {
     const companyInfo = await companyModel.find();
     res.status(201).send({
       success: true,
-      message: "Company Saved.",
+      message: "Company saved",
       company: companyInfo,
     });
   } catch (error) {
@@ -33,7 +33,7 @@ export const createUpdateCompanyController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error in Company",
+      message: "Error in company",
     });
   }
 };
@@ -44,7 +44,7 @@ export const companyController = async (req, res) => {
     const company = await companyModel.find();
     res.status(200).send({
       success: true,
-      message: "All Company List",
+      message: "All company list",
       company,
     });
   } catch (error) {
@@ -52,7 +52,7 @@ export const companyController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error While getting Single Company",
+      message: "Error while getting single company",
     });
   }
 };

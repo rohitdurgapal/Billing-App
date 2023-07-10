@@ -1,18 +1,15 @@
 .header-logo {
-  color: white !important;
-  text-decoration: none !important;
-  display: flex;
-  align-items: center;
+  font-family: fantasy;
+  color: #f36a21 !important;
+  font-size: 2em;
+  margin: 0;
 }
-.header-link {
-  text-decoration: none;
-  width: 100%;
-  display: block;
-  color: black !important;
-  padding: 0px 0.5rem;
+.header-logo span {
+  font-family: fantasy;
+  color: #000000;
 }
-.header-link:hover {
-  text-decoration: underline;
+.header-logo:hover {
+  color: #f36a21 !important;
 }
 .active {
   color: white;
@@ -20,6 +17,15 @@
 .add-block {
   display: flex;
   flex-direction: row;
+  margin: 15px 0px;
+  justify-content: center;
+  align-items: center;
+}
+.add-block h3 {
+  font-weight: 600;
+  font-size: 1.5em;
+  color: #000000;
+  margin: 0;
 }
 .add-block a {
   margin-left: auto;
@@ -71,28 +77,34 @@
   color: var(--bs-navbar-active-color);
 }
 .nav-class {
-  position: fixed !important;
-  width: 100%;
-  top: 0px;
+  border-bottom: 2px solid #e4a11b;
 }
-.table-design {
-  width: 100%;
+.go2534082608 {
+  background-color: #f36a21 !important;
 }
-.table-design tbody {
-  display: block;
-  max-height: 60vh;
+.ul-header-design {
+  justify-content: center;
+}
+.custom-account-name {
+  background-color: #f36a21 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.table-design th {
+  color: #ffffff;
+  background-color: #f36a21 !important;
+}
+.stricky-table {
+  max-height: 70vh;
   overflow: auto;
 }
-.table-design thead,
-.table-design tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+.thead-dark {
+  position: sticky;
+  top: 0;
 }
-.table-design thead,
-.table-design tbody {
-  width: calc(100% - 1em);
-}
-.table > :not(caption) > * > * {
-  border-bottom-width: 0px !important;
+.spinner-class {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
