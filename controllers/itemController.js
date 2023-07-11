@@ -4,16 +4,14 @@ import slugify from "slugify";
 // create item
 export const createItemController = async (req, res) => {
   try {
-    const { code, name, price } = req.body;
-    if (!name) {
-      return res.status(400).send({ message: "Name is required" });
-    }
+    const { code, name, categoryId, subCategoryId, quantityId } = req.body;
     if (!code) {
       return res.status(400).send({ message: "Code is required" });
     }
-    if (!price) {
-      return res.status(400).send({ message: "Price is required" });
+    if (!name) {
+      return res.status(400).send({ message: "Name is required" });
     }
+
     const existingCode = await itemModel.findOne({ code });
     if (existingCode) {
       return res.status(200).send({
@@ -32,7 +30,9 @@ export const createItemController = async (req, res) => {
       code,
       name,
       slug: slugify(name),
-      price,
+      categoryId,
+      subCategoryId,
+      quantityId,
     }).save();
     res.status(201).send({
       success: true,
@@ -52,11 +52,18 @@ export const createItemController = async (req, res) => {
 //update item
 export const updateItemController = async (req, res) => {
   try {
-    const { code, name, price } = req.body;
+    const { code, name, categoryId, subCategoryId, quantityId } = req.body;
     const { id } = req.params;
     const item = await itemModel.findByIdAndUpdate(
       id,
-      { code, name, slug: slugify(name), price },
+      {
+        code,
+        name,
+        slug: slugify(name),
+        categoryId,
+        subCategoryId,
+        quantityId,
+      },
       { new: true }
     );
     res.status(200).send({
@@ -116,7 +123,13 @@ export const singleItemController = async (req, res) => {
 export const deleteItemController = async (req, res) => {
   try {
     const { id } = req.params;
-    await itemModel.findByIdAndDelete(id);
+    await itemModel.findByIdAndUpdate(
+      id,
+      {
+        status: 0,
+      },
+      { new: true }
+    );
     res.status(200).send({
       success: true,
       message: "Item deleted successfully",
@@ -125,7 +138,7 @@ export const deleteItemController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "error while deleting item",
+      message: "Error while deleting item",
       error,
     });
   }

@@ -1,18 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Layout";
-import Table from "react-bootstrap/Table";
 import toast from "react-hot-toast";
 import axios from "axios";
+import Table from "react-bootstrap/Table";
 import Formatdate from "../../common/Formatdate";
-import SubCategoryForm from "./SubCategoryForm";
-const SubCategory = () => {
+import ItemForm from "./ItemForm";
+const Item = () => {
   const [category, setCategory] = useState([]);
-  const [subcategory, setSubCategory] = useState([]);
-  const [name, setName] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [subcategoryId, setSubCategoryId] = useState("");
+  const [subcategory, setSubCategory] = useState([]);
+  const [subCategoryId, setSubCategoryId] = useState("");
+  const [quantity, setQuantity] = useState([]);
+  const [quantityId, setQuantityId] = useState([]);
+  const [items, setItems] = useState([]);
+  const [code, setCode] = useState("");
+  const [name, setName] = useState("");
+  const [itemId, setItemId] = useState("");
   const [flag, setFlag] = useState(false);
   var count = 0;
+
+  const addSelectedItem = (e) => {
+    setQuantityId(e);
+  };
+
+  const removeSelectedItem = (e) => {
+    setQuantityId(e);
+    if (e.lenth === 0) {
+      setQuantityId([]);
+    }
+  };
+
+  const updatePrice = (_id, price) => {
+    const result = quantityId.map((p) => {
+      if (p._id === _id) {
+        return { ...p, price };
+      } else {
+        return p;
+      }
+    });
+    setQuantityId(result);
+  };
 
   //get all category
   const getAllCategory = async () => {
@@ -42,9 +69,40 @@ const SubCategory = () => {
     }
   };
 
+  //get all quantity
+  const getAllQuantity = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND}api/v1/quantity/get-quantity`
+      );
+      if (data?.success) {
+        setQuantity(data?.quantity);
+      }
+    } catch (error) {
+      toast.error("Something went wrong while getting quantity");
+    }
+  };
+
+  //get all item
+  const getAllItem = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND}api/v1/items/get-item`
+      );
+      if (data?.success) {
+        setItems(data?.item);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong in getting items");
+    }
+  };
+
   useEffect(() => {
     getAllCategory();
     getAllSubCategory();
+    getAllQuantity();
+    getAllItem();
   }, []);
 
   //handle Form
@@ -53,39 +111,49 @@ const SubCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND}api/v1/sub-category/create-sub-category`,
+        `${process.env.REACT_APP_BACKEND}api/v1/items/create-item`,
         {
-          categoryId,
+          code,
           name,
+          categoryId,
+          subCategoryId,
+          quantityId,
         }
       );
       if (data?.success) {
         toast.success(`${name} is created`);
+        setCode("");
         setName("");
         setCategoryId("");
         setSubCategoryId("");
-        getAllSubCategory();
+        setQuantityId([]);
+        setItemId("");
+        getAllItem();
         setFlag(false);
       } else {
         toast.error(data.message);
         setFlag(false);
       }
     } catch (error) {
+      console.log(error);
       toast.error(error.response.data.message);
       setFlag(false);
     }
   };
 
-  //get single sub-category
-  const getSingleSubCategory = async (id) => {
+  //get single item
+  const getSingleItem = async (id) => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND}api/v1/sub-category/single-sub-category/${id}`
+        `${process.env.REACT_APP_BACKEND}api/v1/items/single-item/${id}`
       );
       if (data.success) {
-        setName(data.subcategory.name);
-        setCategoryId(data.subcategory.categoryId);
-        setSubCategoryId(data.subcategory._id);
+        setCode(data.item.code);
+        setName(data.item.name);
+        setCategoryId(data.item.categoryId);
+        setSubCategoryId(data.item.subCategoryId);
+        setQuantityId(data.item.quantityId);
+        setItemId(data.item._id);
       } else {
         toast.error(data.message);
       }
@@ -94,93 +162,109 @@ const SubCategory = () => {
     }
   };
 
-  //update sub-category
+  //update item
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_BACKEND}api/v1/sub-category/update-sub-category/${subcategoryId}`,
-        { categoryId, name }
+        `${process.env.REACT_APP_BACKEND}api/v1/items/update-item/${itemId}`,
+        { code, name, categoryId, subCategoryId, quantityId }
       );
       if (data.success) {
         toast.success(`${name} is updated`);
+        setCode("");
         setName("");
         setCategoryId("");
         setSubCategoryId("");
-        getAllSubCategory();
+        setQuantityId([]);
+        setItemId("");
+        getAllItem();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error(error.response.data.message);
     }
   };
 
-  //delete sub-category
-  const deleteSubCategory = async (id) => {
-    if (window.confirm("Do you really want to delete this sub category?")) {
+  //delete item
+  const handleDelete = async (id) => {
+    if (window.confirm("Do you really want to delete this item?")) {
       try {
         const { data } = await axios.delete(
-          `${process.env.REACT_APP_BACKEND}api/v1/sub-category/delete-sub-category/${id}`
+          `${process.env.REACT_APP_BACKEND}api/v1/items/delete-item/${id}`
         );
         if (data.success) {
-          toast.success(`Sub category is deleted`);
-          getAllSubCategory();
+          toast.success(`Item is deleted`);
+          getAllItem();
         }
       } catch (error) {
         toast.error("Something went wrong");
       }
     }
   };
-
   return (
-    <Layout title="Sub Category">
+    <Layout title="Item">
       <div className="form-box">
-        <SubCategoryForm
-          handleAction={subcategoryId === "" ? handleInsert : handleUpdate}
+        <ItemForm
+          handleAction={itemId === "" ? handleInsert : handleUpdate}
+          code={code}
+          setCode={setCode}
           name={name}
           setName={setName}
-          categoryId={categoryId}
-          setCategoryId={setCategoryId}
-          subcategoryId={subcategoryId}
+          itemId={itemId}
           flag={flag}
           category={category}
+          categoryId={categoryId}
+          setCategoryId={setCategoryId}
+          subcategory={subcategory}
+          subCategoryId={subCategoryId}
+          setSubCategoryId={setSubCategoryId}
+          addSelectedItem={addSelectedItem}
+          removeSelectedItem={removeSelectedItem}
+          quantity={quantity}
+          quantityId={quantityId}
+          updatePrice={updatePrice}
         />
       </div>
       <div className="add-block">
-        <h3>Sub Category</h3>
+        <h3>Item</h3>
       </div>
+
       <div className="stricky-table">
         {" "}
         <Table className="table-design table-responsive">
           <thead className="thead-dark">
             <tr>
               <th>#</th>
-              <th>Name</th>
-              <th>Category</th>
+              <th>Item Name</th>
+              <th>Item Code</th>
+              <th>Item Price</th>
               <th>Created At</th>
               <th>Updated At</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {subcategory?.map((c) => (
+            {items?.map((c) => (
               <tr key={c._id}>
                 <td>{++count}</td>
                 <td>{c.name}</td>
-                <td>{c.categoryId.name}</td>
+                <td>{c.code}</td>
+                <td>{c.price}</td>
                 <td>{Formatdate(new Date(c.createdAt))}</td>
                 <td>{Formatdate(new Date(c.updatedAt))}</td>
                 <td>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
-                    onClick={() => getSingleSubCategory(c._id)}
+                    onClick={() => getSingleItem(c._id)}
                   >
                     E
                   </button>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
-                    onClick={() => deleteSubCategory(c._id)}
+                    onClick={() => handleDelete(c._id)}
                   >
                     D
                   </button>
@@ -194,4 +278,4 @@ const SubCategory = () => {
   );
 };
 
-export default SubCategory;
+export default Item;

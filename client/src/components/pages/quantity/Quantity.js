@@ -4,30 +4,31 @@ import Table from "react-bootstrap/Table";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Formatdate from "../../common/Formatdate";
-import CategoryForm from "./CategoryForm";
-const Category = () => {
-  const [category, setCategory] = useState([]);
+import QuantityForm from "./QuantityForm";
+const Quantity = () => {
+  const [quantity, setQuantity] = useState([]);
   const [name, setName] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+  const [nameValue, setNameValue] = useState("");
+  const [quantityId, setQuantityId] = useState("");
   const [flag, setFlag] = useState(false);
   var count = 0;
 
-  //get all category
-  const getAllCategory = async () => {
+  //get all quantity
+  const getAllQuantity = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND}api/v1/category/get-category`
+        `${process.env.REACT_APP_BACKEND}api/v1/quantity/get-quantity`
       );
       if (data?.success) {
-        setCategory(data?.category);
+        setQuantity(data?.quantity);
       }
     } catch (error) {
-      toast.error("Something went wrong while getting category");
+      toast.error("Something went wrong while getting quantity");
     }
   };
 
   useEffect(() => {
-    getAllCategory();
+    getAllQuantity();
   }, []);
 
   //handle Form
@@ -36,16 +37,17 @@ const Category = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND}api/v1/category/create-category`,
+        `${process.env.REACT_APP_BACKEND}api/v1/quantity/create-quantity`,
         {
           name,
+          nameValue,
         }
       );
       if (data?.success) {
         toast.success(`${name} is created`);
         setName("");
-        setCategoryId("");
-        getAllCategory();
+        setNameValue("");
+        getAllQuantity();
         setFlag(false);
       } else {
         toast.error(data.message);
@@ -57,15 +59,16 @@ const Category = () => {
     }
   };
 
-  //get single category
-  const getSingleCategory = async (id) => {
+  //get single quantity
+  const getSingleQuantity = async (id) => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND}api/v1/category/single-category/${id}`
+        `${process.env.REACT_APP_BACKEND}api/v1/quantity/single-quantity/${id}`
       );
       if (data.success) {
-        setName(data.category.name);
-        setCategoryId(data.category._id);
+        setName(data.quantity.name);
+        setNameValue(data.quantity.nameValue);
+        setQuantityId(data.quantity._id);
       } else {
         toast.error(data.message);
       }
@@ -74,19 +77,20 @@ const Category = () => {
     }
   };
 
-  //update category
+  //update quantity
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_BACKEND}api/v1/category/update-category/${categoryId}`,
-        { name }
+        `${process.env.REACT_APP_BACKEND}api/v1/quantity/update-quantity/${quantityId}`,
+        { name, nameValue }
       );
       if (data.success) {
         toast.success(`${name} is updated`);
         setName("");
-        setCategoryId("");
-        getAllCategory();
+        setNameValue("");
+        setQuantityId("");
+        getAllQuantity();
       } else {
         toast.error(data.message);
       }
@@ -95,16 +99,16 @@ const Category = () => {
     }
   };
 
-  //delete category
-  const deleteCategory = async (id) => {
-    if (window.confirm("Do you really want to delete this category?")) {
+  //delete quantity
+  const deleteQuantity = async (id) => {
+    if (window.confirm("Do you really want to delete this quantity?")) {
       try {
         const { data } = await axios.delete(
-          `${process.env.REACT_APP_BACKEND}api/v1/category/delete-category/${id}`
+          `${process.env.REACT_APP_BACKEND}api/v1/quantity/delete-quantity/${id}`
         );
         if (data.success) {
-          toast.success(`Category is deleted`);
-          getAllCategory();
+          toast.success(`Quantity is deleted`);
+          getAllQuantity();
         }
       } catch (error) {
         toast.error("Something went wrong");
@@ -113,18 +117,20 @@ const Category = () => {
   };
 
   return (
-    <Layout title="Category">
+    <Layout title="Quantity">
         <div className="form-box">
-      <CategoryForm
-        handleAction={categoryId === "" ? handleInsert : handleUpdate}
-        name={name}
-        setName={setName}
-        categoryId={categoryId}
-        flag={flag}
-      />
+        <QuantityForm
+                  handleAction={quantityId === "" ? handleInsert : handleUpdate}
+                  name={name}
+                  setName={setName}
+                  nameValue={nameValue}
+                  setNameValue={setNameValue}
+                  quantityId={quantityId}
+                  flag={flag}
+                />
       </div>
       <div className="add-block">
-        <h3>Category</h3>
+        <h3>Quantity</h3>
       </div>
       <div className="stricky-table">
         {" "}
@@ -132,14 +138,14 @@ const Category = () => {
           <thead className="thead-dark">
             <tr>
               <th>#</th>
-              <th>Category</th>
+              <th>Name</th>
               <th>Created At</th>
               <th>Updated At</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {category?.map((c) => (
+            {quantity?.map((c) => (
               <tr key={c._id}>
                 <td>{++count}</td>
                 <td>{c.name}</td>
@@ -148,13 +154,13 @@ const Category = () => {
                 <td>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
-                    onClick={() => getSingleCategory(c._id)}
+                    onClick={() => getSingleQuantity(c._id)}
                   >
                     E
                   </button>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
-                    onClick={() => deleteCategory(c._id)}
+                    onClick={() => deleteQuantity(c._id)}
                   >
                     D
                   </button>
@@ -168,4 +174,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Quantity;

@@ -59,7 +59,7 @@ const Header = () => {
                     Masters
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                  <NavLink
+                    <NavLink
                       to="/admin/masters/category"
                       className="dropdown-item"
                     >
@@ -72,7 +72,13 @@ const Header = () => {
                       Sub Category Master
                     </NavLink>
                     <NavLink
-                      to="/admin/masters/items"
+                      to="/admin/masters/quantity"
+                      className="dropdown-item"
+                    >
+                      Quantity Master
+                    </NavLink>
+                    <NavLink
+                      to="/admin/masters/item"
                       className="dropdown-item"
                     >
                       Item Master

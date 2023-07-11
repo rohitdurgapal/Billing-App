@@ -1,60 +1,139 @@
 import React from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-
-const Itemform = ({
+import Multiselect from "multiselect-react-dropdown";
+import Table from "react-bootstrap/Table";
+const ItemForm = ({
   handleAction,
   code,
   setCode,
   name,
   setName,
-  price,
-  setPrice,
+  category,
+  categoryId,
+  setCategoryId,
+  subcategory,
+  subCategoryId,
+  setSubCategoryId,
   itemId,
   flag,
+  addSelectedItem,
+  removeSelectedItem,
+  quantity,
+  quantityId,
+  updatePrice,
 }) => {
   return (
     <>
-      <div className="item-block">
-        <h3>{itemId === "" ? "Add" : "Update"} Item</h3>
-        <Form onSubmit={handleAction}>
-          <Row>
-            <Col xs={3}>
-              <Form.Control
+      <h3>{itemId === "" ? "Add" : "Update"} Item</h3>
+      <form onSubmit={handleAction}>
+        <div className="row justify-content-start">
+          <div className="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="code">Code</label>
+              <input
+                id="code"
                 type="text"
-                placeholder="Item Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Col>
-            <Col xs={3}>
-              <Form.Control
-                type="text"
-                placeholder="Item Code"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
               />
-            </Col>
-            <Col xs={3}>
-              <Form.Control
+            </div>
+          </div>
+          <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
                 type="text"
-                placeholder="Item Price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
-            </Col>
-            <Col xs={3}>
-              <Button variant="primary" type="submit" disabled={flag}>
+            </div>
+          </div>
+          <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="categoryId">Category</label>
+              <select
+                id="categoryId"
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+              >
+                <option>Select</option>
+                {category?.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="subCategoryId">Sub Category</label>
+              <select
+                id="subCategoryId"
+                value={subCategoryId}
+                onChange={(e) => setSubCategoryId(e.target.value)}
+              >
+                <option>Select</option>
+                {subcategory?.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="quantity">Quantity</label>
+              <Multiselect
+                id="quantity"
+                displayValue="name"
+                onSelect={(e) => addSelectedItem(e)}
+                onRemove={(e) => removeSelectedItem(e)}
+                options={quantity}
+                selectedValues={quantityId}
+              />
+            </div>
+          </div>
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div className="c-block">
+              <button type="submit" className="btn custom-btn" disabled={flag}>
                 Save
-              </Button>
-            </Col>
-          </Row>
-        </Form>
-      </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      {quantityId.length > 0 ? (
+        <div className="multi-select-block">
+          <Table className="table-design table-responsive">
+            <thead>
+              <tr>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {quantityId?.map((c) => (
+                <tr key={c._id}>
+                  <td>{c.name}</td>
+                  <td>
+                    <input
+                      type="number"
+                      value={c.price}
+                      onChange={(e) => updatePrice(c._id, e.target.value)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
 
-export default Itemform;
+export default ItemForm;

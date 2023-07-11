@@ -114,7 +114,8 @@
   font-size: 14px;
   margin-bottom: 2px;
 }
-.c-block input, .c-block select {
+.c-block input,
+.c-block select {
   width: 100%;
   border: 1px solid #ccc;
   padding: 4px;
@@ -128,4 +129,25 @@
 .c-block input:focus:active,
 select:focus:active {
   border: 1px solid red;
+}
+.c-block .search-wrapper {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 0px 4px;
+  border-radius: 4px;
+  outline: none !important;
+}
+.multi-select-block {
+  margin: 15px 0px;
+}
+.multi-select-block input {
+  width: max-content;
+  border: 1px solid #ccc;
+  padding: 4px;
+  border-radius: 4px;
+  outline: none !important;
+}
+.chip,
+.highlightOption {
+  background: #f36a21 !important;
 }

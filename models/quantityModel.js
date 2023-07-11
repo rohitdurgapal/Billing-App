@@ -7,10 +7,6 @@ const quantityModel = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    nameValue: {
-      type: String,
-      required: true,
-    },
     status: {
       type: Number,
       default: 1,

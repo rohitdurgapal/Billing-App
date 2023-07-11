@@ -4,12 +4,9 @@ import slugify from "slugify";
 // create quantity
 export const createQuantityController = async (req, res) => {
   try {
-    const { name, nameValue } = req.body;
+    const { name } = req.body;
     if (!name) {
       return res.status(400).send({ message: "Name is required" });
-    }
-    if (!nameValue) {
-      return res.status(400).send({ message: "Value is required" });
     }
     const existingName = await quantityModel.findOne({ name });
     if (existingName) {
@@ -21,7 +18,6 @@ export const createQuantityController = async (req, res) => {
     const quantity = await new quantityModel({
       name,
       slug: slugify(name),
-      nameValue,
     }).save();
     res.status(201).send({
       success: true,
@@ -41,11 +37,11 @@ export const createQuantityController = async (req, res) => {
 //update quantity
 export const updateQuantityController = async (req, res) => {
   try {
-    const { name, nameValue } = req.body;
+    const { name } = req.body;
     const { id } = req.params;
     const quantity = await quantityModel.findByIdAndUpdate(
       id,
-      { name, slug: slugify(name), nameValue },
+      { name, slug: slugify(name) },
       { new: true }
     );
     res.status(200).send({
