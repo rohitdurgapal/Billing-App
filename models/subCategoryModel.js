@@ -8,7 +8,8 @@ const subCategoryModel = new mongoose.Schema(
       trim: true,
     },
     categoryId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
       required: true,
     },
     status: {

@@ -68,6 +68,7 @@ export const subCategoryControlller = async (req, res) => {
   try {
     const subcategory = await subCategoryModel
       .find({ status: 1 })
+      .populate("categoryId")
       .sort({ createdAt: -1 });
     res.status(200).send({
       success: true,

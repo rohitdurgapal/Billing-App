@@ -8,11 +8,15 @@ import Items from "./components/pages/items/Items";
 import Company from "./components/pages/company/Company";
 import Printbill from "./components/pages/sales/Printbill";
 import AdminCheck from "./components/auth/AdminCheck";
+import Category from "./components/pages/category/Category";
+import SubCategory from "./components/pages/subcategory/SubCategory";
 function App() {
   return (
     <Routes>
       <Route path="/admin/login" element={<Login />} />
       <Route path="/admin/" element={<AdminCheck />}>
+        <Route path="/admin/masters/category" element={<Category />} />
+        <Route path="/admin/masters/subcategory" element={<SubCategory />} />
         <Route path="/admin/sales" element={<Sales />} />
         <Route path="/admin/sales/add" element={<Saleform />} />
         <Route path="/admin/sales/update/:id" element={<Saleform />} />
