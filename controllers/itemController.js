@@ -84,7 +84,11 @@ export const updateItemController = async (req, res) => {
 // get all item
 export const itemControlller = async (req, res) => {
   try {
-    const item = await itemModel.find().sort({ code: -1 });
+    const item = await itemModel
+      .find()
+      .populate("categoryId")
+      .populate("subCategoryId")
+      .sort({ code: -1 });
     res.status(200).send({
       success: true,
       message: "All items list",

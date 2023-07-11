@@ -22,7 +22,7 @@ const Login = () => {
         `${process.env.REACT_APP_BACKEND}api/v1/auth/admin-auth`
       );
       if (res.data.ok === true) {
-        navigate("/admin/sales");
+        navigate("/admin/");
       } else {
         navigate("/admin/login");
       }
@@ -50,7 +50,7 @@ const Login = () => {
         });
         localStorage.setItem("auth", JSON.stringify(data));
         setTimeout(() => {
-          navigate("/admin/sales");
+          navigate("/admin");
         }, 1000);
       } else {
         toast.error(data.message);

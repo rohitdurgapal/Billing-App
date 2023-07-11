@@ -176,13 +176,13 @@ const SubCategory = () => {
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => getSingleSubCategory(c._id)}
                   >
-                    E
+                    <i className="fa fa-pencil" aria-hidden="true"></i>
                   </button>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => deleteSubCategory(c._id)}
                   >
-                    D
+                    <i className="fa fa-trash" aria-hidden="true"></i>
                   </button>
                 </td>
               </tr>

@@ -11,11 +11,13 @@ import AdminCheck from "./components/auth/AdminCheck";
 import Category from "./components/pages/category/Category";
 import SubCategory from "./components/pages/subcategory/SubCategory";
 import Quantity from "./components/pages/quantity/Quantity";
+import Home from "./components/layout/Home";
 function App() {
   return (
     <Routes>
       <Route path="/admin/login" element={<Login />} />
-      <Route path="/admin/" element={<AdminCheck />}>
+      <Route path="/admin" element={<AdminCheck />}>
+        <Route path="/admin" element={<Home />} />
         <Route path="/admin/masters/category" element={<Category />} />
         <Route path="/admin/masters/subcategory" element={<SubCategory />} />
         <Route path="/admin/masters/quantity" element={<Quantity />} />

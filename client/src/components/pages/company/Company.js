@@ -63,34 +63,46 @@ const Company = () => {
     }
   };
   return (
-    <Layout title={"Company Master"}>
-      <h3>Company Listing</h3>
+    <Layout title="Company">
+      <div className="add-block">
+        <h3>Company</h3>
+      </div>
       <Form onSubmit={handleAction}>
-        <Row>
-          <Col xs={2}>
-            <Form.Control
-              type="text"
-              placeholder="Company Name"
-              value={company.name}
-              onChange={(e) => setCompany({ ...company, name: e.target.value })}
-            />
-          </Col>
-          <Col xs={9}>
-            <Form.Control
-              type="text"
-              placeholder="Company Address"
-              value={company.address}
-              onChange={(e) =>
-                setCompany({ ...company, address: e.target.value })
-              }
-            />
-          </Col>
-          <Col xs={1}>
-            <Button variant="primary" type="submit">
-              Save
-            </Button>
-          </Col>
-        </Row>
+        <div className="row justify-content-start">
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
+                type="text"
+                value={company.name}
+                onChange={(e) =>
+                  setCompany({ ...company, name: e.target.value })
+                }
+              />
+            </div>
+          </div>
+          <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="address">Address</label>
+              <input
+                id="address"
+                type="text"
+                value={company.address}
+                onChange={(e) =>
+                  setCompany({ ...company, address: e.target.value })
+                }
+              />
+            </div>
+          </div>
+          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div className="c-block">
+              <button type="submit" className="btn custom-btn">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
       </Form>
     </Layout>
   );

@@ -118,16 +118,16 @@ const Quantity = () => {
 
   return (
     <Layout title="Quantity">
-        <div className="form-box">
+      <div className="form-box">
         <QuantityForm
-                  handleAction={quantityId === "" ? handleInsert : handleUpdate}
-                  name={name}
-                  setName={setName}
-                  nameValue={nameValue}
-                  setNameValue={setNameValue}
-                  quantityId={quantityId}
-                  flag={flag}
-                />
+          handleAction={quantityId === "" ? handleInsert : handleUpdate}
+          name={name}
+          setName={setName}
+          nameValue={nameValue}
+          setNameValue={setNameValue}
+          quantityId={quantityId}
+          flag={flag}
+        />
       </div>
       <div className="add-block">
         <h3>Quantity</h3>
@@ -156,13 +156,13 @@ const Quantity = () => {
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => getSingleQuantity(c._id)}
                   >
-                    E
+                    <i className="fa fa-pencil" aria-hidden="true"></i>
                   </button>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => deleteQuantity(c._id)}
                   >
-                    D
+                    <i className="fa fa-trash" aria-hidden="true"></i>
                   </button>
                 </td>
               </tr>

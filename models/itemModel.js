@@ -29,6 +29,10 @@ const itemSchema = new mongoose.Schema(
       required: true,
       validate: [(value) => value.length > 0, "Select atlease one quantity"],
     },
+    status: {
+      type: Number,
+      default: 1,
+    },
   },
   { timestamps: true }
 );

@@ -120,22 +120,22 @@ const Sales = () => {
               <td>{Formatdate(new Date(c.updatedAt))}</td>
               <td>
                 <NavLink
-                  to={`/sales/print-bill/${c._id}`}
+                  to={`/admin/sales/print-bill/${c._id}`}
                   className="btn custom-btn me-1 btn-sm mb-1"
                 >
-                  P
+                  <i className="fa fa-print" aria-hidden="true"></i>
                 </NavLink>
                 <NavLink
-                  to={`/sales/update/${c._id}`}
+                  to={`/admin/sales/update/${c._id}`}
                   className="btn custom-btn me-1 btn-sm mb-1"
                 >
-                  E
+                 <i className="fa fa-pencil" aria-hidden="true"></i>
                 </NavLink>
                 <Button
                   className="btn custom-btn me-1 btn-sm mb-1"
                   onClick={() => deletePopUp(c._id)}
                 >
-                  D
+                  <i className="fa fa-trash" aria-hidden="true"></i>
                 </Button>
               </td>
             </tr>

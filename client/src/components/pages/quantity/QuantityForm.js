@@ -1,6 +1,14 @@
 import React from "react";
 
-const QuantityForm = ({ handleAction, name, setName, nameValue,setNameValue, quantityId, flag }) => {
+const QuantityForm = ({
+  handleAction,
+  name,
+  setName,
+  nameValue,
+  setNameValue,
+  quantityId,
+  flag,
+}) => {
   return (
     <>
       <h3>{quantityId === "" ? "Add" : "Update"} Quantity</h3>
@@ -19,11 +27,9 @@ const QuantityForm = ({ handleAction, name, setName, nameValue,setNameValue, qua
           </div>
           <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
             <div className="c-block">
-              <button
-                type="submit"
-                className="btn custom-btn"
-                disabled={flag}
-              >Save</button>
+              <button type="submit" className="btn custom-btn" disabled={flag}>
+                Save
+              </button>
             </div>
           </div>
         </div>

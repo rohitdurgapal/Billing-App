@@ -17,7 +17,6 @@ const Item = () => {
   const [name, setName] = useState("");
   const [itemId, setItemId] = useState("");
   const [flag, setFlag] = useState(false);
-  var count = 0;
 
   const addSelectedItem = (e) => {
     setQuantityId(e);
@@ -237,9 +236,10 @@ const Item = () => {
         <Table className="table-design table-responsive">
           <thead className="thead-dark">
             <tr>
-              <th>#</th>
-              <th>Item Name</th>
-              <th>Item Code</th>
+              <th>Code</th>
+              <th>Item</th>
+              <th>Category</th>
+              <th>Sub Category</th>
               <th>Item Price</th>
               <th>Created At</th>
               <th>Updated At</th>
@@ -249,9 +249,10 @@ const Item = () => {
           <tbody>
             {items?.map((c) => (
               <tr key={c._id}>
-                <td>{++count}</td>
+                 <td>{c.code}</td>
                 <td>{c.name}</td>
-                <td>{c.code}</td>
+                <td>{c.categoryId?.name}</td>
+                <td>{c.subCategoryId?.name}</td>
                 <td>{c.price}</td>
                 <td>{Formatdate(new Date(c.createdAt))}</td>
                 <td>{Formatdate(new Date(c.updatedAt))}</td>
@@ -260,13 +261,13 @@ const Item = () => {
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => getSingleItem(c._id)}
                   >
-                    E
+                    <i className="fa fa-pencil" aria-hidden="true"></i>
                   </button>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => handleDelete(c._id)}
                   >
-                    D
+                    <i className="fa fa-trash" aria-hidden="true"></i>
                   </button>
                 </td>
               </tr>

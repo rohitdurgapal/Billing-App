@@ -114,14 +114,14 @@ const Category = () => {
 
   return (
     <Layout title="Category">
-        <div className="form-box">
-      <CategoryForm
-        handleAction={categoryId === "" ? handleInsert : handleUpdate}
-        name={name}
-        setName={setName}
-        categoryId={categoryId}
-        flag={flag}
-      />
+      <div className="form-box">
+        <CategoryForm
+          handleAction={categoryId === "" ? handleInsert : handleUpdate}
+          name={name}
+          setName={setName}
+          categoryId={categoryId}
+          flag={flag}
+        />
       </div>
       <div className="add-block">
         <h3>Category</h3>
@@ -150,13 +150,13 @@ const Category = () => {
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => getSingleCategory(c._id)}
                   >
-                    E
+                    <i className="fa fa-pencil" aria-hidden="true"></i>
                   </button>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
                     onClick={() => deleteCategory(c._id)}
                   >
-                    D
+                    <i className="fa fa-trash" aria-hidden="true"></i>
                   </button>
                 </td>
               </tr>

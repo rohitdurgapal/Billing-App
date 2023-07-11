@@ -49,9 +49,9 @@ const Header = () => {
           <MDBCollapse navbar show={showBasic}>
             <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 ul-header-design">
               <MDBNavbarItem>
-                <NavLink to="/admin/sales" className="nav-link">
+                {/* <NavLink to="/admin/sales" className="nav-link">
                   Sales
-                </NavLink>
+                </NavLink> */}
               </MDBNavbarItem>
               <MDBNavbarItem>
                 <MDBDropdown>
@@ -99,9 +99,9 @@ const Header = () => {
                 {auth?.user?.name}
               </MDBDropdownToggle>
               <MDBDropdownMenu>
-                <NavLink to="/admin/masters/items" className="dropdown-item">
+                {/* <NavLink to="/admin/masters/items" className="dropdown-item">
                   My Profile
-                </NavLink>
+                </NavLink> */}
                 <button
                   type="button"
                   onClick={handleLogout}

@@ -151,3 +151,6 @@ select:focus:active {
 .highlightOption {
   background: #f36a21 !important;
 }
+.multiSelectContainer li:hover {
+  background: #f36a21 !important;
+}
