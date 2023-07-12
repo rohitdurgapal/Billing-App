@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contextapi/AdminContext";
 import {
   MDBContainer,
@@ -34,7 +34,7 @@ const Header = () => {
     <>
       <MDBNavbar expand="lg" light bgColor="light" className="nav-class">
         <MDBContainer fluid>
-          <NavLink to="/admin/sales" className="header-logo">
+          <NavLink to="/admin" className="header-logo">
             <span>Desi</span> Flavours
           </NavLink>
           <MDBNavbarToggler
@@ -49,9 +49,33 @@ const Header = () => {
           <MDBCollapse navbar show={showBasic}>
             <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 ul-header-design">
               <MDBNavbarItem>
-                {/* <NavLink to="/admin/sales" className="nav-link">
-                  Sales
-                </NavLink> */}
+                <NavLink to="/admin" className="nav-link" end>
+                  Home
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <NavLink to="/admin/masters/category" className="nav-link" end>
+                  Category
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <NavLink
+                  to="/admin/masters/subcategory"
+                  className="nav-link"
+                  end
+                >
+                  Sub Category
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <NavLink to="/admin/masters/quantity" className="nav-link" end>
+                  Quantity
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <NavLink to="/admin/masters/item" className="nav-link" end>
+                  Item
+                </NavLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
                 <MDBDropdown>
@@ -59,30 +83,6 @@ const Header = () => {
                     Masters
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <NavLink
-                      to="/admin/masters/category"
-                      className="dropdown-item"
-                    >
-                      Category Master
-                    </NavLink>
-                    <NavLink
-                      to="/admin/masters/subcategory"
-                      className="dropdown-item"
-                    >
-                      Sub Category Master
-                    </NavLink>
-                    <NavLink
-                      to="/admin/masters/quantity"
-                      className="dropdown-item"
-                    >
-                      Quantity Master
-                    </NavLink>
-                    <NavLink
-                      to="/admin/masters/item"
-                      className="dropdown-item"
-                    >
-                      Item Master
-                    </NavLink>
                     <NavLink
                       to="/admin/masters/company"
                       className="dropdown-item"
@@ -99,9 +99,6 @@ const Header = () => {
                 {auth?.user?.name}
               </MDBDropdownToggle>
               <MDBDropdownMenu>
-                {/* <NavLink to="/admin/masters/items" className="dropdown-item">
-                  My Profile
-                </NavLink> */}
                 <button
                   type="button"
                   onClick={handleLogout}

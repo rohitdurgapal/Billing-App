@@ -154,3 +154,28 @@ select:focus:active {
 .multiSelectContainer li:hover {
   background: #f36a21 !important;
 }
+.table-design .item-quantity-price {
+  font-size: 12px;
+  width: 100%;
+  display: block;
+  font-weight: 600;
+  border-bottom: 2px solid #f36a21;
+  padding: 4px 0px;
+}
+.c-block {
+  margin-bottom: 10px;
+}
+.navbar-nav .show > .nav-link,
+.navbar-nav .nav-link.active {
+  color: #f36a21 !important;
+  font-weight: 600;
+}
+.multiSelectContainer input {
+  width: max-content;
+  border: 0 !important;
+  padding: 4px;
+  border-radius: 4px;
+  outline: none !important;
+  height: auto;
+  background: none;
+}

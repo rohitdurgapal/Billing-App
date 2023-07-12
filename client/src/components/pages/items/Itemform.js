@@ -20,6 +20,7 @@ const ItemForm = ({
   quantity,
   quantityId,
   updatePrice,
+  count,
 }) => {
   return (
     <>
@@ -56,7 +57,7 @@ const ItemForm = ({
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
               >
-                <option>Select</option>
+                <option value="">Select</option>
                 {category?.map((c) => (
                   <option key={c._id} value={c._id}>
                     {c.name}
@@ -73,7 +74,7 @@ const ItemForm = ({
                 value={subCategoryId}
                 onChange={(e) => setSubCategoryId(e.target.value)}
               >
-                <option>Select</option>
+                <option value="">Select</option>
                 {subcategory?.map((c) => (
                   <option key={c._id} value={c._id}>
                     {c.name}
@@ -82,20 +83,20 @@ const ItemForm = ({
               </select>
             </div>
           </div>
-          <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+          <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <div className="c-block">
-              <label htmlFor="quantity">Quantity</label>
+              <label>Quantity</label>
               <Multiselect
-                id="quantity"
                 displayValue="name"
                 onSelect={(e) => addSelectedItem(e)}
                 onRemove={(e) => removeSelectedItem(e)}
                 options={quantity}
                 selectedValues={quantityId}
+                showCheckbox
               />
             </div>
           </div>
-          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+          <div className="col-lg-1 col-md-2 col-sm-2 col-xs-12">
             <div className="c-block">
               <button type="submit" className="btn custom-btn" disabled={flag}>
                 Save
@@ -109,6 +110,7 @@ const ItemForm = ({
           <Table className="table-design table-responsive">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Quantity</th>
                 <th>Price</th>
               </tr>
@@ -116,6 +118,7 @@ const ItemForm = ({
             <tbody>
               {quantityId?.map((c) => (
                 <tr key={c._id}>
+                  <td>{++count}</td>
                   <td>{c.name}</td>
                   <td>
                     <input

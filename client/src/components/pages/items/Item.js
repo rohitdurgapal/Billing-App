@@ -17,7 +17,8 @@ const Item = () => {
   const [name, setName] = useState("");
   const [itemId, setItemId] = useState("");
   const [flag, setFlag] = useState(false);
-
+  var count = 0;
+  var icount = 0;
   const addSelectedItem = (e) => {
     setQuantityId(e);
   };
@@ -203,6 +204,7 @@ const Item = () => {
       }
     }
   };
+  console.log("quantityId", quantityId);
   return (
     <Layout title="Item">
       <div className="form-box">
@@ -225,6 +227,7 @@ const Item = () => {
           quantity={quantity}
           quantityId={quantityId}
           updatePrice={updatePrice}
+          count={count}
         />
       </div>
       <div className="add-block">
@@ -240,22 +243,30 @@ const Item = () => {
               <th>Item</th>
               <th>Category</th>
               <th>Sub Category</th>
-              <th>Item Price</th>
+              <th>Quantity-Price</th>
               <th>Created At</th>
               <th>Updated At</th>
+              <th>Code</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {items?.map((c) => (
               <tr key={c._id}>
-                 <td>{c.code}</td>
+                <td>{++icount}</td>
                 <td>{c.name}</td>
                 <td>{c.categoryId?.name}</td>
                 <td>{c.subCategoryId?.name}</td>
-                <td>{c.price}</td>
+                <td>
+                  {c.quantityId?.map((q) => (
+                    <div className="item-quantity-price" key={q._id}>
+                      {q.name}-{q.price}
+                    </div>
+                  ))}
+                </td>
                 <td>{Formatdate(new Date(c.createdAt))}</td>
                 <td>{Formatdate(new Date(c.updatedAt))}</td>
+                <td>{c.code}</td>
                 <td>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"

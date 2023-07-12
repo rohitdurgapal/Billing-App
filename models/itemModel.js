@@ -4,13 +4,11 @@ const itemSchema = new mongoose.Schema(
   {
     code: {
       type: Number,
-      required: true,
       unique: true,
     },
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     slug: {
       type: String,
@@ -37,4 +35,8 @@ const itemSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+itemSchema.index(
+  { name: 1, categoryId: 1, subCategoryId: 1 },
+  { unique: true }
+);
 export default mongoose.model("Item", itemSchema);

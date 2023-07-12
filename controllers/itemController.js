@@ -5,9 +5,6 @@ import slugify from "slugify";
 export const createItemController = async (req, res) => {
   try {
     const { code, name, categoryId, subCategoryId, quantityId } = req.body;
-    if (!code) {
-      return res.status(400).send({ message: "Code is required" });
-    }
     if (!name) {
       return res.status(400).send({ message: "Name is required" });
     }
@@ -19,13 +16,7 @@ export const createItemController = async (req, res) => {
         message: "Item code already exist",
       });
     }
-    const existingName = await itemModel.findOne({ name });
-    if (existingName) {
-      return res.status(200).send({
-        success: false,
-        message: "Item name already exist",
-      });
-    }
+
     const item = await new itemModel({
       code,
       name,
@@ -85,10 +76,10 @@ export const updateItemController = async (req, res) => {
 export const itemControlller = async (req, res) => {
   try {
     const item = await itemModel
-      .find()
+      .find({ status: 1 })
       .populate("categoryId")
       .populate("subCategoryId")
-      .sort({ code: -1 });
+      .sort({ createdAt: -1 });
     res.status(200).send({
       success: true,
       message: "All items list",
