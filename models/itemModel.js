@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const itemSchema = new mongoose.Schema(
   {
-    code: {
-      type: Number,
-      unique: true,
-    },
     name: {
       type: String,
       required: true,

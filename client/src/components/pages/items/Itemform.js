@@ -3,8 +3,6 @@ import Multiselect from "multiselect-react-dropdown";
 import Table from "react-bootstrap/Table";
 const ItemForm = ({
   handleAction,
-  code,
-  setCode,
   name,
   setName,
   category,
@@ -27,28 +25,6 @@ const ItemForm = ({
       <h3>{itemId === "" ? "Add" : "Update"} Item</h3>
       <form onSubmit={handleAction}>
         <div className="row justify-content-start">
-          <div className="col-lg-1 col-md-1 col-sm-1 col-xs-12">
-            <div className="c-block">
-              <label htmlFor="code">Code</label>
-              <input
-                id="code"
-                type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <div className="c-block">
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-          </div>
           <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
             <div className="c-block">
               <label htmlFor="categoryId">Category</label>
@@ -81,6 +57,17 @@ const ItemForm = ({
                   </option>
                 ))}
               </select>
+            </div>
+          </div>
+          <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div className="c-block">
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
           </div>
           <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">

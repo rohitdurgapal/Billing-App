@@ -4,21 +4,12 @@ import slugify from "slugify";
 // create item
 export const createItemController = async (req, res) => {
   try {
-    const { code, name, categoryId, subCategoryId, quantityId } = req.body;
+    const { name, categoryId, subCategoryId, quantityId } = req.body;
     if (!name) {
       return res.status(400).send({ message: "Name is required" });
     }
 
-    const existingCode = await itemModel.findOne({ code });
-    if (existingCode) {
-      return res.status(200).send({
-        success: false,
-        message: "Item code already exist",
-      });
-    }
-
     const item = await new itemModel({
-      code,
       name,
       slug: slugify(name),
       categoryId,
@@ -43,12 +34,11 @@ export const createItemController = async (req, res) => {
 //update item
 export const updateItemController = async (req, res) => {
   try {
-    const { code, name, categoryId, subCategoryId, quantityId } = req.body;
+    const { name, categoryId, subCategoryId, quantityId } = req.body;
     const { id } = req.params;
     const item = await itemModel.findByIdAndUpdate(
       id,
       {
-        code,
         name,
         slug: slugify(name),
         categoryId,

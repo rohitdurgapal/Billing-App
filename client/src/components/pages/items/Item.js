@@ -13,7 +13,6 @@ const Item = () => {
   const [quantity, setQuantity] = useState([]);
   const [quantityId, setQuantityId] = useState([]);
   const [items, setItems] = useState([]);
-  const [code, setCode] = useState("");
   const [name, setName] = useState("");
   const [itemId, setItemId] = useState("");
   const [flag, setFlag] = useState(false);
@@ -113,7 +112,6 @@ const Item = () => {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND}api/v1/items/create-item`,
         {
-          code,
           name,
           categoryId,
           subCategoryId,
@@ -122,7 +120,6 @@ const Item = () => {
       );
       if (data?.success) {
         toast.success(`${name} is created`);
-        setCode("");
         setName("");
         setCategoryId("");
         setSubCategoryId("");
@@ -148,7 +145,6 @@ const Item = () => {
         `${process.env.REACT_APP_BACKEND}api/v1/items/single-item/${id}`
       );
       if (data.success) {
-        setCode(data.item.code);
         setName(data.item.name);
         setCategoryId(data.item.categoryId);
         setSubCategoryId(data.item.subCategoryId);
@@ -168,11 +164,10 @@ const Item = () => {
     try {
       const { data } = await axios.put(
         `${process.env.REACT_APP_BACKEND}api/v1/items/update-item/${itemId}`,
-        { code, name, categoryId, subCategoryId, quantityId }
+        { name, categoryId, subCategoryId, quantityId }
       );
       if (data.success) {
         toast.success(`${name} is updated`);
-        setCode("");
         setName("");
         setCategoryId("");
         setSubCategoryId("");
@@ -210,8 +205,6 @@ const Item = () => {
       <div className="form-box">
         <ItemForm
           handleAction={itemId === "" ? handleInsert : handleUpdate}
-          code={code}
-          setCode={setCode}
           name={name}
           setName={setName}
           itemId={itemId}
@@ -239,14 +232,13 @@ const Item = () => {
         <Table className="table-design table-responsive">
           <thead className="thead-dark">
             <tr>
-              <th>Code</th>
+              <th>#</th>
               <th>Item</th>
               <th>Category</th>
               <th>Sub Category</th>
-              <th>Quantity-Price</th>
+              <th>Quantity&nbsp;-&nbsp;Price</th>
               <th>Created At</th>
               <th>Updated At</th>
-              <th>Code</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -260,13 +252,12 @@ const Item = () => {
                 <td>
                   {c.quantityId?.map((q) => (
                     <div className="item-quantity-price" key={q._id}>
-                      {q.name}-{q.price}
+                      {q.name} - {q.price}
                     </div>
                   ))}
                 </td>
                 <td>{Formatdate(new Date(c.createdAt))}</td>
                 <td>{Formatdate(new Date(c.updatedAt))}</td>
-                <td>{c.code}</td>
                 <td>
                   <button
                     className="btn custom-btn me-1 btn-sm mb-1"
