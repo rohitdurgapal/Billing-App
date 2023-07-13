@@ -199,7 +199,6 @@ const Item = () => {
       }
     }
   };
-  console.log("quantityId", quantityId);
   return (
     <Layout title="Item">
       <div className="form-box">

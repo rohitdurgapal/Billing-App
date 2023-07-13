@@ -23,7 +23,7 @@ const ItemForm = ({
   return (
     <>
       <h3>{itemId === "" ? "Add" : "Update"} Item</h3>
-      <form onSubmit={handleAction}>
+      <form>
         <div className="row justify-content-start">
           <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
             <div className="c-block">
@@ -33,7 +33,7 @@ const ItemForm = ({
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
               >
-                <option value="">Select</option>
+                <option>Select</option>
                 {category?.map((c) => (
                   <option key={c._id} value={c._id}>
                     {c.name}
@@ -50,7 +50,7 @@ const ItemForm = ({
                 value={subCategoryId}
                 onChange={(e) => setSubCategoryId(e.target.value)}
               >
-                <option value="">Select</option>
+                <option>Select</option>
                 {subcategory?.map((c) => (
                   <option key={c._id} value={c._id}>
                     {c.name}
@@ -85,7 +85,12 @@ const ItemForm = ({
           </div>
           <div className="col-lg-1 col-md-2 col-sm-2 col-xs-12">
             <div className="c-block">
-              <button type="submit" className="btn custom-btn" disabled={flag}>
+              <button
+                type="button"
+                onClick={handleAction}
+                className="btn custom-btn"
+                disabled={flag}
+              >
                 Save
               </button>
             </div>
